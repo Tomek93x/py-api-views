@@ -4,7 +4,7 @@ from django.db import models
 class Genre(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -12,7 +12,7 @@ class Actor(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
 
@@ -21,16 +21,16 @@ class CinemaHall(models.Model):
     rows = models.PositiveIntegerField()
     seats_in_row = models.PositiveIntegerField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     duration = models.PositiveIntegerField(help_text="Duration in minutes")
-    actors = models.ManyToManyField(Actor, related_name="movies")
-    genres = models.ManyToManyField(Genre, related_name="movies")
+    actors = models.ManyToManyField(Actor, related_name="movies", blank=True)
+    genres = models.ManyToManyField(Genre, related_name="movies", blank=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
